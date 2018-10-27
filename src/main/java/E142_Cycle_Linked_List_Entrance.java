@@ -5,20 +5,18 @@ public class E142_Cycle_Linked_List_Entrance {
         }
         ListNode slow = head;
         ListNode fast = head.next;
-        int slowSteps = 0;
-        int fastSteps = 0;
         while (slow != fast) {
             if (fast == null || fast.next == null)
                 return null;
             slow = slow.next;
-            slowSteps++;
             fast = fast.next.next;
-            fastSteps += 2;
         }
-        int steps = fastSteps - slowSteps;
-        ListNode entrance = head;
-        while (steps-- != 0) entrance = entrance.next;
-        return entrance;
+        slow = head;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
     }
 
     /**
