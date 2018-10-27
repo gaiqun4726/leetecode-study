@@ -1,4 +1,4 @@
-public class E160_intersect_linked_list {
+public class E160_Intersect_linked_list {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if (headA == null || headB == null)
             return null;
