@@ -1,3 +1,5 @@
+package medium;
+
 public class M31_Next_Permutation {
     /**
      * 1. 从右向左，找到第一对连续的顺序数，记录开始位置i

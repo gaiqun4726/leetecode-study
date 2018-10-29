@@ -1,3 +1,5 @@
+package easy;
+
 public class E235_LCA_For_BST {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || p == null || q == null)

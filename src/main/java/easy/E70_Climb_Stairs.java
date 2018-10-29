@@ -1,3 +1,5 @@
+package easy;
+
 public class E70_Climb_Stairs {
     /**
      * 这道题要从第一次爬楼梯的选择思考。如果从最后一次爬楼梯思考，会陷入死胡同

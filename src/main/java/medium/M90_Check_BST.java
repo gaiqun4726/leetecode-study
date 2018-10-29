@@ -1,3 +1,5 @@
+package medium;
+
 public class M90_Check_BST {
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);

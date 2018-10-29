@@ -1,3 +1,5 @@
+package easy;
+
 public class E53_Max_Subsequence_Sum {
     /**
      * 从数组开始连续序列的和第一次变为负数的点为分界点

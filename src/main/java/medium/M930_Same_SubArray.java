@@ -1,3 +1,5 @@
+package medium;
+
 public class M930_Same_SubArray {
     public static void main(String[] args) {
         int[] A = {0, 0, 0, 0, 0, 0};

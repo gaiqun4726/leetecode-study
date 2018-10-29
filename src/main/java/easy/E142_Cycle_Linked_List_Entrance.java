@@ -1,3 +1,5 @@
+package easy;
+
 public class E142_Cycle_Linked_List_Entrance {
     public ListNode detectCycle(ListNode head) {
         if (head == null || head.next == null) {

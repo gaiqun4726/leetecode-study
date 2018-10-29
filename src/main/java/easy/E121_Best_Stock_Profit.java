@@ -1,3 +1,5 @@
+package easy;
+
 public class E121_Best_Stock_Profit {
     /**
      * 找到极小值，以及之后最大的极大值，它们的差就是最大利润
