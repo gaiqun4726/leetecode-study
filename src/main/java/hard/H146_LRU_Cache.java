@@ -1,6 +1,7 @@
 package hard;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class H146_LRU_Cache {
@@ -20,13 +21,13 @@ public class H146_LRU_Cache {
     /**
      * 未完成
      */
-    class LRUCache {
+    class LRUCache1 {
         private int capacity;
         private Map<Integer, DualLinkedList> map;
         private DualLinkedList head;
         private DualLinkedList tail;
 
-        public LRUCache(int capacity) {
+        public LRUCache1(int capacity) {
             this.capacity = capacity;
             map = new HashMap<Integer, DualLinkedList>();
             head = new DualLinkedList(null, null);
@@ -94,6 +95,28 @@ public class H146_LRU_Cache {
                 tail.next.prev = null;
                 tail.next = null;
             }
+        }
+    }
+
+    class LRUCache {
+        private int capacity;
+        private LinkedHashMap<Integer, Integer> map;
+
+        public LRUCache(int capacity) {
+            this.capacity = capacity;
+            map = new LinkedHashMap<Integer, Integer>(this.capacity, 0.75f, true) {
+                protected boolean removeEldestEntry(Map.Entry eldest) {
+                    return size() > capacity;
+                }
+            };
+        }
+
+        public int get(int key) {
+            return map.getOrDefault(key, -1);
+        }
+
+        public void put(int key, int value) {
+            map.put(key, value);
         }
     }
 
