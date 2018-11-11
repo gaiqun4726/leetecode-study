@@ -1,5 +1,7 @@
 package hard;
 
+import common.ListNode;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -48,17 +50,5 @@ public class H23_Merge_K_Sorted_List {
                 queue.offer(tmp.next);
         }
         return result.next;
-    }
-
-    /**
-     * Definition for singly-linked list.
-     */
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
     }
 }

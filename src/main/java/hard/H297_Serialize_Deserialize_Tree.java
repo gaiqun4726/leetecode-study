@@ -1,5 +1,7 @@
 package hard;
 
+import common.TreeNode;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -59,18 +61,5 @@ public class H297_Serialize_Deserialize_Tree {
         root.left = helperDeserialize(it);
         root.right = helperDeserialize(it);
         return root;
-    }
-
-    /**
-     * Definition for a binary tree node.
-     */
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
     }
 }

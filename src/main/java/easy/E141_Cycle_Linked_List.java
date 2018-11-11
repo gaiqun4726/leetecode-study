@@ -1,5 +1,7 @@
 package easy;
 
+import common.ListNode;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,18 +44,5 @@ public class E141_Cycle_Linked_List {
             fast = fast.next.next;
         }
         return true;
-    }
-
-    /**
-     * Definition for singly-linked list.
-     */
-    class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
     }
 }

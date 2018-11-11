@@ -1,5 +1,7 @@
 package medium;
 
+import common.TreeNode;
+
 public class M90_Check_BST {
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
@@ -27,18 +29,5 @@ public class M90_Check_BST {
         if (root.val >= max || root.val <= min)
             return false;
         return isValidHelper(root.left, min, root.val) && isValidHelper(root.right, root.val, max);
-    }
-
-    /**
-     * Definition for a binary tree node.
-     */
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
     }
 }

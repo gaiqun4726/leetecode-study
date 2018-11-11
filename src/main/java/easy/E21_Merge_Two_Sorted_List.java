@@ -1,5 +1,7 @@
 package easy;
 
+import common.ListNode;
+
 public class E21_Merge_Two_Sorted_List {
     public static void main(String[] args) {
         ListNode l1 = new ListNode(1);
@@ -39,17 +41,5 @@ public class E21_Merge_Two_Sorted_List {
         if (l2 != null)
             cur.next = l2;
         return head.next;
-    }
-
-    /**
-     * Definition for singly-linked list.
-     */
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
     }
 }

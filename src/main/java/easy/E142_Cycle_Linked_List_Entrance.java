@@ -1,5 +1,7 @@
 package easy;
 
+import common.ListNode;
+
 public class E142_Cycle_Linked_List_Entrance {
     public ListNode detectCycle(ListNode head) {
         if (head == null || head.next == null) {
@@ -19,18 +21,5 @@ public class E142_Cycle_Linked_List_Entrance {
             fast = fast.next;
         }
         return slow;
-    }
-
-    /**
-     * Definition for singly-linked list.
-     */
-    class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
     }
 }

@@ -1,5 +1,7 @@
 package easy;
 
+import common.ListNode;
+
 public class E160_Intersect_linked_list {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if (headA == null || headB == null)
@@ -32,18 +34,5 @@ public class E160_Intersect_linked_list {
             second = second.next;
         }
         return first;
-    }
-
-    /**
-     * Definition for singly-linked list.
-     */
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
     }
 }

@@ -1,5 +1,7 @@
 package easy;
 
+import common.ListNode;
+
 public class E206_Reverse_List {
     /**
      * 反转列表注意事项: 1.需要prev和cur两个指针 2.需要四步操作 3.注意最后一个节点不要断裂
@@ -17,17 +19,5 @@ public class E206_Reverse_List {
             cur = tmp;
         }
         return prev;
-    }
-
-    /**
-     * Definition for singly-linked list.
-     */
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
     }
 }

@@ -1,5 +1,7 @@
 package easy;
 
+import common.ListNode;
+
 public class E237_Delete_Node_In_List {
     /**
      * 这道题的意思是，只给一个节点，删除这个节点。
@@ -12,15 +14,4 @@ public class E237_Delete_Node_In_List {
         node.next = node.next.next;
     }
 
-    /**
-     * Definition for singly-linked list.
-     */
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 }
