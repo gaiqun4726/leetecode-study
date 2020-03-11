@@ -25,6 +25,7 @@ public class M33_Search_Rotated_Sorted_Array {
             int mid = (start + end) / 2;
             if (nums[mid] == target)
                 return mid;
+            // 这里按照mid在断点的左、右分情形讨论，可以使问题更清晰
             else if (nums[mid] < nums[end]) { // 用mid和end进行二分
                 if (target > nums[mid] && target <= nums[end]) // 在右边的完全升序数组中查找
                     start = mid + 1;

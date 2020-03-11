@@ -11,7 +11,7 @@
 
   <modules>
     <module>cracking</module>
-    <module>leetcode</module>
+    <module>leet</module>
   </modules>
 
   <build>
