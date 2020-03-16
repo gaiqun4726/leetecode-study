@@ -8,7 +8,7 @@ package com.example;
  * @author gaiqun
  * @date 2020/3/6
  */
-public class Q01_01_Unique_Char {
+public class P0101_Unique_Char {
     public boolean isUnique(String astr) {
         boolean[] chars = new boolean[256];
         for(int i=0;i<astr.length();i++) {
@@ -22,7 +22,7 @@ public class Q01_01_Unique_Char {
     }
 
     public static void main(String[] args) {
-        Q01_01_Unique_Char solution = new Q01_01_Unique_Char();
+        P0101_Unique_Char solution = new P0101_Unique_Char();
         System.out.println(solution.isUnique("abcd"));
     }
 }
