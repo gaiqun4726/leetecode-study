@@ -12,6 +12,7 @@
   <modules>
     <module>cracking</module>
     <module>leet</module>
+    <module>offer</module>
   </modules>
 
   <build>
