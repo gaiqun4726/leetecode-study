@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * 序列化与反序列化都用递归来做；序列化用深度遍历，反序列化也要用深度遍历。
  * 反序列化递归函数需要传迭代器，不能传索引。如果传索引，递归回退的时候获取的下一个元素会出问题。
  * 记住用迭代器。递归函数返回树的根节点。
+ * 不用迭代器，用全局变量也可以，绝对不能用primitive类型传参
  */
 public class Q37_Serialize_Binary_Tree {
 
