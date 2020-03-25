@@ -1,6 +1,7 @@
 package easy;
 
 public class E121_Best_Stock_Profit {
+
     /**
      * 找到最小值，以及之后的最大值，它们的差就是最大利润
      * minPrice保存最小值，maxProfit保存当前值和最小值之差的最大值
@@ -11,15 +12,30 @@ public class E121_Best_Stock_Profit {
      * @return
      */
     public int maxProfit(int[] prices) {
-        if (prices == null || prices.length == 0)
+        if (prices == null || prices.length == 0) {
             return 0;
+        }
         int minPrice = Integer.MAX_VALUE;
         int maxProfit = 0;
         for (int i = 0; i < prices.length; i++) {
-            if (prices[i] <= minPrice)
+            if (prices[i] <= minPrice) {
                 minPrice = prices[i];
-            else if (prices[i] - minPrice > maxProfit)
+            } else if (prices[i] - minPrice > maxProfit) {
                 maxProfit = prices[i] - minPrice;
+            }
+        }
+        return maxProfit;
+    }
+
+    public int maxProfit2(int[] prices) {
+        int maxProfit = 0;
+        if (prices == null || prices.length == 0) {
+            return maxProfit;
+        }
+        int minPrice = prices[0];
+        for (int i = 1; i < prices.length; i++) {
+            minPrice = Math.min(minPrice, prices[i]);
+            maxProfit = Math.max(maxProfit, prices[i] - minPrice);
         }
         return maxProfit;
     }
