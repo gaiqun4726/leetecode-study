@@ -7,20 +7,20 @@ import java.util.List;
 /**
  * @author gaiqun
  * @date 2020/3/19
- *
+ * <p>
  * 总结
- *
- * 回溯问题。leetcode提交有问题，但是代码是没问题的。
- *
+ * <p>
+ * 回溯问题。
+ * <p>
  * 回溯问题的基本结构：
  * v表示部分解，i表示当前检查的元素序号，xi表示当前元素在解空间内可能的取值，Xi表示i元素的解空间
- *
+ * <p>
  * 1: v <- {}  // 部分解初始化为空
  * 2: tag <- false // tag表示是否有解
  * 3: backtrace(1) // 调用回溯方法，从第一个元素开始深度遍历
  * 4: if tag then output v // 如果tag为true，则有可行解
  * 5: else output "no solution" // 否则没有可行解
- *
+ * <p>
  * procedure backtrace(k) // 递归函数
  * 1: for xk in Xk // 对于解空间中的每一个值
  * 2：  v <- xk // 把xk加入部分解
@@ -36,8 +36,8 @@ public class M93_Restore_IP {
         System.out.println(solution.restoreIpAddresses("0000"));
     }
 
-    private static List<String> resList = new ArrayList<>();
-    private static LinkedList<String> indexList = new LinkedList<>();
+    private List<String> resList = new ArrayList<>();
+    private LinkedList<String> indexList = new LinkedList<>();
 
     public List<String> restoreIpAddresses(String s) {
         backTrace(1, 0, s);
@@ -52,9 +52,11 @@ public class M93_Restore_IP {
             // 把当前元素加入部分解
             indexList.addLast(segment);
             // 如果是可行解，则输出。这里判断条件是，已经得到四段数字，总长度没有剩余，每段数字都小于255
-            if (count == 4 && index + i == len && Integer.parseInt(segment) < 256) {
+            // 注意，数字010或00这种也是不符合IP约束的，需要过滤掉
+            boolean valid = String.valueOf(Integer.parseInt(segment)).equals(segment);
+            if (valid && count == 4 && index + i == len && Integer.parseInt(segment) < 256) {
                 resList.add(String.join(".", indexList));
-            } else if (count < 4 && index + i < len && Integer.parseInt(segment) < 256) {
+            } else if (valid && count < 4 && index + i < len && Integer.parseInt(segment) < 256) {
                 // 如果是部分解，递归判断下一层的元素能不能得到可行解
                 backTrace(count + 1, index + i, s);
             }
