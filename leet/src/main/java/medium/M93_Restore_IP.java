@@ -7,20 +7,20 @@ import java.util.List;
 /**
  * @author gaiqun
  * @date 2020/3/19
- * <p>
+ *
  * 总结
- * <p>
+ *
  * 回溯问题。
- * <p>
+ *
  * 回溯问题的基本结构：
  * v表示部分解，i表示当前检查的元素序号，xi表示当前元素在解空间内可能的取值，Xi表示i元素的解空间
- * <p>
+ *
  * 1: v <- {}  // 部分解初始化为空
  * 2: tag <- false // tag表示是否有解
  * 3: backtrace(1) // 调用回溯方法，从第一个元素开始深度遍历
  * 4: if tag then output v // 如果tag为true，则有可行解
  * 5: else output "no solution" // 否则没有可行解
- * <p>
+ *
  * procedure backtrace(k) // 递归函数
  * 1: for xk in Xk // 对于解空间中的每一个值
  * 2：  v <- xk // 把xk加入部分解
