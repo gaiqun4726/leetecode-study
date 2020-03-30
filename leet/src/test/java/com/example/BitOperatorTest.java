@@ -27,4 +27,13 @@ public class BitOperatorTest {
         Assert.assertEquals(2, a);
         Assert.assertEquals(9, temp);
     }
+
+    @Test
+    public void snowflake() {
+        Long val = 30000L;
+        Long max = Long.MAX_VALUE;
+        Long num = val << 17;
+
+        System.out.println(num);
+    }
 }
