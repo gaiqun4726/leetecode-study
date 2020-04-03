@@ -13,6 +13,7 @@
     <module>cracking</module>
     <module>leet</module>
     <module>offer</module>
+    <module>concurrent</module>
   </modules>
 
   <dependencies>
