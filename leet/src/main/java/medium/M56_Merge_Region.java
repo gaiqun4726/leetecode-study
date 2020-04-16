@@ -48,4 +48,29 @@ public class M56_Merge_Region {
         }
         return array;
     }
+
+    public int[][] merge2(int[][] intervals) {
+        if (intervals.length <= 1) {
+            return intervals;
+        }
+        List<int[]> list = new ArrayList<>();
+        // 必须设置Comparator，否则数组无法排序
+        Arrays.sort(intervals, (o1, o2) -> o1[0] - o2[0]);
+        int[] prev = intervals[0];
+        for (int i = 1; i < intervals.length; i++) {
+            int[] cur = intervals[i];
+            if (prev[1] >= cur[0]) {
+                prev[1] = Math.max(prev[1], cur[1]);
+            } else {
+                list.add(prev);
+                prev = cur;
+            }
+        }
+        list.add(prev);
+        int[][] res = new int[list.size()][];
+        for (int i = 0; i < list.size(); i++) {
+            res[i] = list.get(i);
+        }
+        return res;
+    }
 }
