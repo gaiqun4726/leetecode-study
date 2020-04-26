@@ -2,25 +2,22 @@ package hard;
 
 import common.ListNode;
 
+import common.ListUtils;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/**
+ * 两个解法的时间复杂度都是O(n*klogk)，但是执行时间解法2更快
+ */
 public class H23_Merge_K_Sorted_List {
+
     public static void main(String[] args) {
-        ListNode l1 = new ListNode(1);
-        ListNode l11 = new ListNode(2);
-        l1.next = l11;
-        ListNode l12 = new ListNode(4);
-        l11.next = l12;
-        l12.next = null;
-        ListNode l2 = new ListNode(1);
-        ListNode l21 = new ListNode(3);
-        l2.next = l21;
-        ListNode l22 = new ListNode(4);
-        l21.next = l22;
-        l22.next = null;
+        int[] nums1 = {1, 2, 3};
+        ListNode l1 = ListUtils.buildList(nums1);
+        int[] nums2 = {4, 5, 6};
+        ListNode l2 = ListUtils.buildList(nums2);
         ListNode[] lists = {l1, l2};
-        System.out.println(new H23_Merge_K_Sorted_List().mergeKLists(lists));
+        System.out.println(new H23_Merge_K_Sorted_List().mergeKLists2(lists));
     }
 
     /**
@@ -46,9 +43,59 @@ public class H23_Merge_K_Sorted_List {
             ListNode tmp = queue.poll();
             cur.next = tmp;
             cur = tmp;
-            if (tmp.next != null)
+            if (tmp.next != null) {
                 queue.offer(tmp.next);
+            }
         }
         return result.next;
+    }
+
+    /**
+     * 多路归并，迭代解法。
+     * 多路归并比逐个归并要快，时间复杂度为O(n*klogk)，其中k为数组长度，n为数组中元素的平均值
+     * 每次把两个链表合并，直到只剩一个链表。
+     * 为了方便在迭代中计算合并的两个链表，每次合并数组中收尾两个链表，并向中间靠拢两个索引。
+     * 一轮结束以后，更新数组的结尾。合并的链表放在第一个链表所在的数组位置。
+     * 因为并没有使用额外的空间，空间复杂度为O(1)。
+     * @param lists
+     * @return
+     */
+    public ListNode mergeKLists2(ListNode[] lists) {
+        if (lists == null || lists.length == 0) {
+            return null;
+        }
+        int end = lists.length - 1;
+        while (end != 0) {
+            int i = 0, j = end;
+            while (i < j) {
+                lists[i] = merge(lists[i], lists[j]);
+                i++;
+                j--;
+            }
+            end = j;
+        }
+        return lists[0];
+    }
+
+    private ListNode merge(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(-1);
+        ListNode cur = head;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                cur.next = l1;
+                l1 = l1.next;
+            } else {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
+        if (l1 != null) {
+            cur.next = l1;
+        }
+        if (l2 != null) {
+            cur.next = l2;
+        }
+        return head.next;
     }
 }
