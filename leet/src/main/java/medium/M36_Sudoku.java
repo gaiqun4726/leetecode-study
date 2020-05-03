@@ -106,9 +106,11 @@ public class M36_Sudoku {
     }
 
     public boolean isValidSudoku2(char[][] board) {
+        // 注意泛型数组怎么定义
         Map<Integer, Integer>[] rowMap = new HashMap[9];
         Map<Integer, Integer>[] colMap = new HashMap[9];
         Map<Integer, Integer>[] subMap = new HashMap[9];
+        // 泛型数组的初始化
         for (int i = 0; i < 9; i++) {
             rowMap[i] = new HashMap<>();
             colMap[i] = new HashMap<>();
@@ -131,6 +133,7 @@ public class M36_Sudoku {
                 } else {
                     colMap[j].put(val, i);
                 }
+                // 每3*3为一个九宫格，一行3个九宫格，这是计算元素属于第几个九宫格的公式
                 int pos = (i / 3) * 3 + (j / 3);
                 if (subMap[pos].containsKey(val)) {
                     return false;
