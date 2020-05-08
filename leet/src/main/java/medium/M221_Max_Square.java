@@ -14,6 +14,17 @@ package medium;
  * 其实上面的想法很接近可以解答了。本地参考Hard85题，稍微改动下就能求解。
  */
 public class M221_Max_Square {
+
+    public static void main(String[] args) {
+        char[][] matrix = {
+                {'1', '1', '1', '0', '1'},
+                {'1', '1', '1', '1', '1'},
+                {'1', '1', '1', '1', '1'},
+                {'1', '0', '0', '1', '0'}};
+        M221_Max_Square solution = new M221_Max_Square();
+        System.out.println(solution.maximalSquare2(matrix));
+    }
+
     public int maximalSquare(char[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
             return 0;
@@ -51,5 +62,37 @@ public class M221_Max_Square {
             }
         }
         return maxRect;
+    }
+
+    public int maximalSquare2(char[][] matrix) {
+        int maxSquare = 0;
+        if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
+            return maxSquare;
+        }
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int[][] dp = new int[row][col];
+        for (int i = 0; i < row; i++) {
+            int count = 0;
+            for (int j = 0; j < col; j++) {
+                count = matrix[i][j] == '1' ? count + 1 : 0;
+                dp[i][j] = count;
+            }
+        }
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                int k = i;
+                int height = dp[k][j];
+                while (k >= 0 && dp[k][j] > 0) {
+                    height = Math.min(height, dp[k][j]);
+                    int width = i - k + 1;
+                    int edge = Math.min(height, width);
+                    maxSquare = Math.max(maxSquare, edge * edge);
+                    k--;
+                }
+            }
+        }
+
+        return maxSquare;
     }
 }
