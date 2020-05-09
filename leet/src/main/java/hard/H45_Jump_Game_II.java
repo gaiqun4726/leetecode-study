@@ -60,4 +60,30 @@ public class H45_Jump_Game_II {
         }
         return steps;
     }
+
+    public int jump3(int[] nums) {
+        int last = nums.length - 1;
+        // 下面的循环不满足只有一个元素的情形，所以单独列出来
+        if (last == 0) {
+            return 0;
+        }
+        int minSteps = 0;
+        // i、j表示当前步骤可以选择的边界
+        int i = 0, j = nums[0];
+        // j小于last，表示还没达到目标位置。由于题目说必然可达最后位置，因此退出循环可达目标
+        while (j < last) {
+            int temp = 0;
+            // 找到当前边界内可选择的跳的最远的位置，把i、j更新
+            for (int k = i; k <= j; k++) {
+                if (nums[k] + k > temp) {
+                    temp = nums[k] + k;
+                    i = k;
+                }
+            }
+            j = temp;
+            minSteps++;
+        }
+        // 退出循环，表示这一步可达目标位置，但是还没跳，所以结果加一。
+        return minSteps + 1;
+    }
 }

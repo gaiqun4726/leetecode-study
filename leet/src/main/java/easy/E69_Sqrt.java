@@ -40,8 +40,32 @@ public class E69_Sqrt {
                 low = mid + 1;
             }
         }
-        return (int)res;
+        return (int) res;
     }
 
-
+    /**
+     * 牛顿法。通过快速迭代，不断逼近目标值。
+     * 设输入为C，则目标值构成的方程为`y=x^2-C`，方程的零值即为平方根。
+     * 对方程求导得到`y'=2x`。取初始值x=x_，带入原方程得到(x_,x_^2-C)，带入导数方程得到该点的斜率为2x_。
+     * 利用斜截式得到切线方程`y=2x_(x-x_)+x_^2-C`，简化为`y=2x_x-x_^2-C`。
+     * 取y等于0，得到`x=1/2*(x_+C/x_)`
+     * @param x
+     * @return
+     */
+    public int mySqrt2(int x) {
+        if (x == 0) {
+            return 0;
+        }
+        // 如果初始值是最大整数，下面初始值加1会越界。这里减1不影响最终结果
+        if (x == Integer.MAX_VALUE) {
+            x = x - 1;
+        }
+        double prev = x;
+        double cur = (x + 1) / 2;
+        while (prev - cur > 1e-6) {
+            prev = cur;
+            cur = (prev + x / prev) / 2;
+        }
+        return (int) cur;
+    }
 }
