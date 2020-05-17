@@ -55,6 +55,7 @@ public class M560_Count_Of_SubArray {
             if (map.containsKey(sum)) {
                 count += map.get(sum);
             }
+            // 学习map的用法，put一个可能不存在的value时，先用getOrDefault给赋值
             map.put(sum + k, map.getOrDefault(sum + k, 0) + 1);
         }
         return count;
