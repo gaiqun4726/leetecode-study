@@ -20,6 +20,14 @@ public class H25_Reverse_K_Linked_List {
 
     private int K;
 
+    /**
+     * 注意，java函数只有值传递，没有引用传递。
+     * 传入一个引用，其实是拷贝了一份引用。我们能在函数内改变引用指向对象的内容，但是没法改变函数外这个引用的值。
+     * 这里我们能改变ListNode内部的值，但是没法改变函数外head指针的值。
+     * @param head
+     * @param k
+     * @return
+     */
     public ListNode reverseKGroup(ListNode head, int k) {
         // k=1，不需翻转
         if (k <= 1) {
