@@ -15,6 +15,7 @@
     <module>offer</module>
     <module>concurrent</module>
     <module>basic</module>
+    <module>review</module>
   </modules>
 
   <dependencies>
