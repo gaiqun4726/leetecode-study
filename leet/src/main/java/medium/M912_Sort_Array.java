@@ -9,6 +9,11 @@ import java.util.Arrays;
  * 总结
  *
  * 实现了快排和归并排序。后续可以实现堆排序
+ *
+ * 归并和快排的区别是，快排是就地排序，空间复杂度为O(1)。归并排序如果是排序数组，只能新开辟数组保存归并结果，空间复杂度为O(n)。
+ * 如果单纯排序，快排就足够好了。但是有些问题需要解决归并排序的思想来解决，比如求逆序数的问题。
+ *
+ * 稳定的排序算法可以使用冒泡排序，时间复杂度O(n^2)。
  */
 public class M912_Sort_Array {
 
@@ -59,10 +64,16 @@ public class M912_Sort_Array {
         return start;
     }
 
+    /**
+     * 归并排序，使用递归求解。思路是：排序数组-》拆分两个数组-》递归排序两个数组-》两个排序数组合并
+     * @param nums
+     * @return
+     */
     public int[] sortArray2(int[] nums) {
         if (nums == null || nums.length == 0 || nums.length == 1) {
             return nums;
         }
+        // 排序结果用一个二维数组表示
         int[][] res = split(nums);
         int[] left = sortArray2(res[0]);
         int[] right = sortArray2(res[1]);
@@ -84,6 +95,7 @@ public class M912_Sort_Array {
     int[] merge(int[] a, int[] b) {
         int aLen = a.length;
         int bLen = b.length;
+        // 开辟新数组保存合并结果
         int[] res = new int[aLen + bLen];
         int i = 0, j = 0, k = 0;
         while (i < aLen && j < bLen) {
