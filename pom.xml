@@ -17,6 +17,7 @@
     <module>interview</module>
     <module>basic</module>
     <module>review</module>
+    <module>jvm</module>
   </modules>
 
   <dependencies>

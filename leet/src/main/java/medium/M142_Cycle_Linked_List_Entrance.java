@@ -56,23 +56,30 @@ public class M142_Cycle_Linked_List_Entrance {
     }
 
     public ListNode detectCycle2(ListNode head) {
+        // 初始化
         if (head == null || head.next == null) {
             return null;
         }
+        // 本题不需要给链表设置头结点
+        // 先各走一步、两步
         ListNode slow = head.next;
         ListNode fast = head.next.next;
+        // 快慢重叠，则快慢指针各走了2nb和nb步
         while (slow != fast) {
+            // 快指针找到结尾，则无环
             if (fast == null || fast.next == null) {
                 return null;
             }
             slow = slow.next;
             fast = fast.next.next;
         }
+        // 满指针重新从头开始，一次走一步
         slow = head;
         while (slow != fast) {
             slow = slow.next;
             fast = fast.next;
         }
+        // 再次重叠，得到入环点
         return slow;
     }
 }

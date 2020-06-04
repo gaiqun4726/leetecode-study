@@ -3,8 +3,10 @@ package medium;
 import java.util.Arrays;
 
 public class M16_Closest_Three_Sum {
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
+        int[] nums = {-1, 2, 1, -4};
+        System.out.println(new M16_Closest_Three_Sum().threeSumClosest2(nums, 1));
     }
 
     /**
@@ -35,15 +37,43 @@ public class M16_Closest_Three_Sum {
                     diff = tempDiff;
                     res = tempRes;
                 }
-                if (tempRes == target)
+                if (tempRes == target) {
                     return res;
-                else if (tempRes > target) c--;
-                else b++;
+                } else if (tempRes > target) {
+                    c--;
+                } else {
+                    b++;
+                }
             }
             a++;
             b = a + 1; // 将指针归位
             c = len - 1;
         }
         return res;
+    }
+
+    public int threeSumClosest2(int[] nums, int target) {
+        int len = nums.length;
+        Arrays.sort(nums);
+        int result = 0;
+        boolean tag = false;
+        for (int mid = 1; mid < len - 1; mid++) {
+            int left = 0, right = len - 1;
+            while (left < mid && right > mid) {
+                int sum = nums[left] + nums[mid] + nums[right];
+                if (!tag) {
+                    result = sum;
+                    tag = true;
+                } else {
+                    result = Math.abs(sum - target) < Math.abs(result - target) ? sum : result;
+                }
+                if (sum > target) {
+                    right--;
+                } else {
+                    left++;
+                }
+            }
+        }
+        return result;
     }
 }

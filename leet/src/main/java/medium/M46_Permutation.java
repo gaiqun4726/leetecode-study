@@ -78,7 +78,7 @@ public class M46_Permutation {
     public List<List<Integer>> permute3(int[] nums) {
         LinkedList<Integer> subList = new LinkedList<>();
         List<Integer> remains = new ArrayList<>();
-        // 如果是包装类的数组，可以直接用Arrays.toList()转。但是对于primitive类型的，只能用for循环一个个添加
+        // 如果是包装类的数组，可以直接用Arrays.asList()转。但是对于primitive类型的，只能用for循环一个个添加
         for (int num : nums) {
             remains.add(num);
         }
