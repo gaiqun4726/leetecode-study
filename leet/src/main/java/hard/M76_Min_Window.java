@@ -64,4 +64,42 @@ public class M76_Min_Window {
         }
         return result;
     }
+
+    public String minWindow2(String s, String t) {
+        Map<Character, Integer> needs = new HashMap<>();
+        Map<Character, Integer> window = new HashMap<>();
+        int valid = 0;
+        for (char c : t.toCharArray()) {
+            needs.put(c, needs.getOrDefault(c, 0) + 1);
+        }
+        int left = 0, right = 0;
+        int start = 0, len = Integer.MAX_VALUE;
+        while (right < s.length()) {
+            char c = s.charAt(right);
+            right++;
+            if (needs.containsKey(c)) {
+                window.put(c, window.getOrDefault(c, 0) + 1);
+                if (window.get(c).equals(needs.get(c))) {
+                    valid++;
+                }
+            }
+            while (valid == needs.size()) {
+                if (right - left < len) {
+                    start = left;
+                    len = right - left;
+                }
+                c = s.charAt(left);
+                left++;
+                if (needs.containsKey(c)) {
+                    // 注意Integer的比较要用equals。否则相同的整数也可能比较结果不同
+                    if (window.get(c).equals(needs.get(c))) {
+                        valid--;
+                    }
+                    window.put(c, window.get(c) - 1);
+                }
+
+            }
+        }
+        return len == Integer.MAX_VALUE ? "" : s.substring(start, start + len);
+    }
 }

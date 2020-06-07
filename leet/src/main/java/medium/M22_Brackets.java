@@ -22,4 +22,35 @@ public class M22_Brackets {
             traceBack(list, cur + ")", open, close + 1, max);
         }
     }
+
+    List<String> result = new ArrayList<>();
+
+    public List<String> generateParenthesis2(int n) {
+        if (n <= 0) {
+            return result;
+        }
+        StringBuilder sb = new StringBuilder();
+        backtrace(sb, n, n);
+        return result;
+    }
+
+    private void backtrace(StringBuilder sb, int left, int right) {
+        if (left == 0 && right == 0) {
+            result.add(sb.toString());
+            return;
+        }
+        if (left > right) {
+            return;
+        }
+        if (left > 0) {
+            sb.append("(");
+            backtrace(sb, left - 1, right);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        if (right > 0) {
+            sb.append(")");
+            backtrace(sb, left, right - 1);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
 }

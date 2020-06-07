@@ -23,4 +23,21 @@ public class E1_Two_Sum {
         }
         return res;
     }
+
+    public int[] twoSum2(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], i);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            int other = target - num;
+            if (other == num && map.get(other) != i) {
+                return new int[]{i, map.get(other)};
+            } else if (other != num && map.containsKey(other)) {
+                return new int[]{i, map.get(other)};
+            }
+        }
+        return new int[]{-1, -1};
+    }
 }
