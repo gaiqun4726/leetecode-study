@@ -18,6 +18,7 @@
     <module>basic</module>
     <module>review</module>
     <module>jvm</module>
+      <module>source</module>
   </modules>
 
   <dependencies>

@@ -22,8 +22,8 @@ public class H224_Basic_Calculatorr {
 
     public static void main(String[] args) {
         H224_Basic_Calculatorr solution = new H224_Basic_Calculatorr();
-        String expression = "(1)";
-        System.out.println(solution.calculate(expression));
+        String expression = "(1+(4+5+2)-3)+(6+8)";
+        System.out.println(solution.calculate2(expression));
     }
 
     public int calculate(String s) {
@@ -81,6 +81,7 @@ public class H224_Basic_Calculatorr {
     /**
      * 从左到右遍历逆波兰式，遇到数字就压栈；遇到运算符则计算栈顶两个数字，然后再压栈
      * 重复上述过程，最后栈顶元素就是表达式的值
+     *
      * @param tokens
      * @return
      */
@@ -104,5 +105,64 @@ public class H224_Basic_Calculatorr {
             }
         }
         return stack.peek();
+    }
+
+    public int calculate2(String s) {
+        return calc(convert(s));
+    }
+
+    private List<String> convert(String s) {
+        Stack<String> stack = new Stack<>();
+        List<String> result = new ArrayList<>();
+        int left = 0, right = 0;
+        while (right < s.length()) {
+            while (right < s.length() && s.charAt(right) == ' ') {
+                right++;
+            }
+            if (right >= s.length()) {
+                break;
+            }
+            left = right;
+            if (s.charAt(right) == '(') {
+                stack.push(s.substring(right, right + 1));
+                right++;
+            } else if (s.charAt(right) == '+' || s.charAt(right) == '-') {
+                if (!stack.isEmpty()) {
+                    result.add(stack.pop());
+                }
+                stack.push(s.substring(right, right + 1));
+                right++;
+            } else if (s.charAt(right) == ')') {
+                while (!stack.peek().equals("(")) {
+                    result.add(stack.pop());
+                    stack.pop();
+                    right++;
+                }
+            } else if (Character.isDigit(s.charAt(right))) {
+                while (right < s.length() && Character.isDigit(s.charAt(right))) {
+                    right++;
+                }
+                result.add(s.substring(left, right));
+            }
+        }
+        while (!stack.isEmpty()) {
+            result.add(stack.pop());
+        }
+        return result;
+    }
+
+    private int calc(List<String> ops) {
+        int index = 1;
+        int a = Integer.parseInt(ops.get(0));
+        while (index < ops.size()) {
+            int b = Integer.parseInt(ops.get(index++));
+            String op = ops.get(index++);
+            if (op.equals("+")) {
+                a += b;
+            } else {
+                a -= b;
+            }
+        }
+        return a;
     }
 }
