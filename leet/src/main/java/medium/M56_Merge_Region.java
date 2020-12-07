@@ -2,6 +2,7 @@ package medium;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -13,6 +14,14 @@ import java.util.List;
  * 以下做法应该是最优解了，时间复杂度O(nlogn)。
  */
 public class M56_Merge_Region {
+
+    public static void main(String[] args) {
+//        int[][] intervals = {{1,3},{2,6},{8,10},{15,18}};
+        int[][] intervals = {{1,4},{4,5}};
+        M56_Merge_Region solution = new M56_Merge_Region();
+        int[][] result = solution.merge3(intervals);
+        System.out.println(result);
+    }
 
     public int[][] merge(int[][] intervals) {
         // 如果不合法，传入什么返回什么
@@ -72,5 +81,27 @@ public class M56_Merge_Region {
             res[i] = list.get(i);
         }
         return res;
+    }
+
+    public int[][] merge3(int[][] intervals) {
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+        List<int[]> result = new ArrayList<>();
+        int[] cur = intervals[0];
+        for(int i=0;i<intervals.length;i++) {
+            int[] next = intervals[i];
+            if(cur[1]<next[0]) {
+                result.add(cur);
+                cur = next;
+            } else {
+                cur = new int[]{cur[0], next[1]};
+            }
+        }
+        int[] last = intervals[intervals.length-1];
+        if(cur[0]<=last[0] && cur[1]>=last[0]) {
+            result.add(cur);
+        } else {
+            result.add(last);
+        }
+        return result.toArray(new int[][]{});
     }
 }

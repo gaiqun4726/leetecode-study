@@ -2,7 +2,9 @@ package medium;
 
 public class M5_Longest_Palindrome {
     public static void main(String[] args) {
-        System.out.println(new M5_Longest_Palindrome().longestPalindrome("babbadd"));
+//        String s = "babbadd";
+        String s = "abac";
+        System.out.println(new M5_Longest_Palindrome().longestPalindrome2(s));
     }
 
     /**
@@ -50,5 +52,34 @@ public class M5_Longest_Palindrome {
         positions[0]++;
         positions[1]--;
         return positions[1] - positions[0] + 1;
+    }
+
+    public String longestPalindrome2(String s) {
+        String res = "";
+        for(int i=0;i<s.length();i++) {
+            String str1 = getPal1(s, i);
+            String str2 = getPal2(s, i);
+            res = res.length()>str1.length()?res:str1;
+            res = res.length()>str2.length()?res:str2;
+        }
+        return res;
+    }
+
+    private String getPal1(String s, int index) {
+        int left = index, right = index;
+        while(left >=0 && right <s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+        return s.substring(left+1, right);
+    }
+
+    private String getPal2(String s, int index) {
+        int left = index, right = index+1;
+        while(left >=0 && right <s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+        return s.substring(left+1, right);
     }
 }

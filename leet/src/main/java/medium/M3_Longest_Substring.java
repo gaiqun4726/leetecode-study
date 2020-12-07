@@ -97,13 +97,11 @@ public class M3_Longest_Substring {
             char c = s.charAt(right);
             while(right<len && !set.contains(c)) {
                 set.add(c);
-                right++;
-                c = s.charAt(right);
+                maxLen = Math.max(maxLen, right-left);
+                c = s.charAt(right++);
             }
-            maxLen = Math.max(maxLen, right-left);
             while(right<len && s.charAt(left) != c && left < right) {
-                set.remove(s.charAt(left));
-                left++;
+                set.remove(s.charAt(left++));
             }
             right++;
         }
