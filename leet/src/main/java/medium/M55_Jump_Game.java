@@ -23,8 +23,8 @@ public class M55_Jump_Game {
     public static void main(String[] args) {
         M55_Jump_Game solution = new M55_Jump_Game();
         //int[] nums = {2,3,1,1,4};
-        int[] nums = {3, 2, 1, 0, 4};
-        System.out.println(solution.canJump(nums));
+        int[] nums = {3, 2, 1, 0, 4, 1};
+        System.out.println(solution.canJump3(nums));
     }
 
     public boolean canJump(int[] nums) {
@@ -61,5 +61,21 @@ public class M55_Jump_Game {
             boarder = Math.max(boarder, i + nums[i]);
         }
         return true;
+    }
+
+    public boolean canJump3(int[] nums) {
+        int[] tags = new int[nums.length];
+        tags[0] = 1;
+        for(int i=0;i<nums.length;i++) {
+            if(tags[i]==1) {
+                int steps = nums[i];
+                for(int j=0;j<=steps;j++) {
+                    if(i+j<nums.length) {
+                        tags[i+j] = 1;
+                    }
+                }
+            }
+        }
+        return tags[nums.length-1] == 1;
     }
 }

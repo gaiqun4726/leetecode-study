@@ -32,12 +32,12 @@ import java.util.Map;
 public class M322_Change_Cash {
 
     public static void main(String[] args) {
-        int[] coins = {186, 419, 83, 408};
-        int amount = 6249;
-        //int[] coins = {1, 2, 5};
-        //int amount = 11;
+        //int[] coins = {186, 419, 83, 408};
+        //int amount = 6249;
+        int[] coins = {1, 2, 5};
+        int amount = 11;
         M322_Change_Cash solution = new M322_Change_Cash();
-        System.out.println(solution.coinChange3(coins, amount));
+        System.out.println(solution.coinChange4(coins, amount));
     }
 
     public int[] cents;
@@ -154,5 +154,27 @@ public class M322_Change_Cash {
             }
         }
         return dp[amount];
+    }
+
+    public int coinChange4(int[] coins, int amount) {
+        int[] memo = new int[amount + 1];
+        return helper(coins, amount, memo);
+    }
+
+    private int helper(int[] coins, int amount, int[] memo) {
+        int count = Integer.MAX_VALUE;
+        for (int coin : coins) {
+            int tmp = amount - coin;
+            if (tmp < 0 || memo[tmp] < 0) {
+                continue;
+            }
+            if (memo[tmp] > 0) {
+                count = Math.min(count, memo[tmp]);
+            } else {
+                count = helper(coins, tmp, memo);
+            }
+        }
+        memo[amount] = count != Integer.MAX_VALUE ? count : -1;
+        return memo[amount];
     }
 }
