@@ -1,7 +1,9 @@
 package medium;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 总结
@@ -17,7 +19,7 @@ public class M3_Longest_Substring {
 
     public static void main(String[] args) {
         String s = "pwwkew";
-        System.out.println(new M3_Longest_Substring().lengthOfLongestSubstring3(s));
+        System.out.println(new M3_Longest_Substring().lengthOfLongestSubstring4(s));
     }
 
     public int lengthOfLongestSubstring(String s) {
@@ -84,5 +86,27 @@ public class M3_Longest_Substring {
             len = Math.max(len, right - left);
         }
         return len;
+    }
+
+    public int lengthOfLongestSubstring4(String s) {
+        Set<Character> set = new HashSet<>();
+        int left =0, right =0;
+        int len = s.length();
+        int maxLen = 0;
+        while(right<len) {
+            char c = s.charAt(right);
+            while(right<len && !set.contains(c)) {
+                set.add(c);
+                right++;
+                c = s.charAt(right);
+            }
+            maxLen = Math.max(maxLen, right-left);
+            while(right<len && s.charAt(left) != c && left < right) {
+                set.remove(s.charAt(left));
+                left++;
+            }
+            right++;
+        }
+        return maxLen;
     }
 }

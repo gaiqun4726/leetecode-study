@@ -6,7 +6,7 @@ import java.util.List;
 public class M54_Spiral_Matrix {
     public static void main(String[] args) {
         int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        System.out.println(new M54_Spiral_Matrix().spiralOrder(matrix));
+        System.out.println(new M54_Spiral_Matrix().spiralOrder2(matrix));
     }
 
     public List<Integer> spiralOrder(int[][] matrix) {
@@ -36,5 +36,54 @@ public class M54_Spiral_Matrix {
         while (tr == br && tc <= bc) list.add(matrix[tr][tc++]); // 剩中间一行
         while (tr <= br && tc == bc) list.add(matrix[tr++][tc]); // 剩中间一列
         return list;
+    }
+
+    public List<Integer> spiralOrder2(int[][] matrix) {
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int tRow = 0;
+        int tCol = col -1;
+        int bRow = row -1;
+        int bCol = 0;
+        List<Integer> result = new ArrayList<>();
+        while(tRow<bRow && bCol<tCol) {
+            int i=bCol;
+            while(i<tCol) {
+                result.add(matrix[tRow][i++]);
+            }
+            i=tRow;
+            while(i<bRow) {
+                result.add(matrix[i++][tCol]);
+            }
+            i=tCol;
+            while(i>bCol) {
+                result.add(matrix[bRow][i--]);
+            }
+            i=bRow;
+            while(i>tRow) {
+                result.add(matrix[i--][bCol]);
+            }
+            tRow++;
+            tCol--;
+            bRow--;
+            bCol++;
+        }
+        if(tRow==bRow) {
+            int i= bCol;
+            while(i<=tCol) {
+                result.add(matrix[tRow][i++]);
+            }
+            tCol--;
+            bCol++;
+        }
+        if(tCol==bCol) {
+            int i= tRow;
+            while(i<=bRow) {
+                result.add(matrix[i++][tCol]);
+            }
+            tRow--;
+            bRow++;
+        }
+        return result;
     }
 }
