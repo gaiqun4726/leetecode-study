@@ -2,8 +2,10 @@ package medium;
 
 import common.TreeNode;
 import common.TreeUtils;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -26,11 +28,11 @@ public class M337_Rob_III {
 
     public static void main(String[] args) {
         M337_Rob_III solution = new M337_Rob_III();
-        //int[] nums = {3, 2, 3, -1, 3, -1, 1};
+        int[] nums = {3, 2, 3, -1, 3, -1, 1};
         //int[] nums = {3, 4, 5, 1, 3, -1, 1};
-        int[] nums = {4, 1, -1, 2, -1, 3};
+        //int[] nums = {4, 1, -1, 2, -1, 3};
         TreeNode root = TreeUtils.buildTree(nums);
-        System.out.println(solution.rob2(root));
+        System.out.println(solution.rob3(root));
     }
 
     Map<TreeNode, Integer> memo = new HashMap<>();
@@ -100,5 +102,41 @@ public class M337_Rob_III {
             level++;
         }
         return Math.max(evenSum, oddSum);
+    }
+
+    public int rob3(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        List<Integer> levels = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            int sum = 0;
+            while (size != 0) {
+                TreeNode node = queue.poll();
+                sum += node.val;
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+                size--;
+            }
+            levels.add(sum);
+        }
+        if (levels.size() == 1) {
+            return root.val;
+        }
+        int a = levels.get(0);
+        int b = Math.max(levels.get(0), levels.get(1));
+        for (int i = 2; i < levels.size(); i++) {
+            int tmp = Math.max(a + levels.get(i), b);
+            a = b;
+            b = tmp;
+        }
+        return b;
     }
 }

@@ -1,6 +1,7 @@
 package easy;
 
 import common.TreeNode;
+import common.TreeUtils;
 
 /**
  * @author gaiqun
@@ -13,6 +14,13 @@ import common.TreeNode;
  * 思路2：按先序遍历把树转为字符串，判断是不是子串。注意空指针需要填充值。
  */
 public class E572_Is_SubTree {
+
+    public static void main(String[] args) {
+        TreeNode s = TreeUtils.buildTree(new int[] {1, -1, 1, -1, -1, 2});
+        TreeNode t = TreeUtils.buildTree(new int[] {1, 2});
+        E572_Is_SubTree solution = new E572_Is_SubTree();
+        System.out.println(solution.isSubtree2(s, t));
+    }
 
     public boolean isSubtree(TreeNode s, TreeNode t) {
         if (s == null && t == null) {
@@ -36,9 +44,32 @@ public class E572_Is_SubTree {
         if (s == null && t == null) {
             return true;
         }
-        if ((s != null && t == null) || (s == null && t != null)) {
+        if (s == null || t == null || s.val == t.val) {
             return false;
         }
-        return s.val == t.val && check(s.left, t.left) && check(s.right, t.right);
+        return check(s.left, t.left) && check(s.right, t.right);
+    }
+
+    public boolean isSubtree2(TreeNode s, TreeNode t) {
+        if (s == null && t == null) {
+            return true;
+        }
+        if (s == null || t == null) {
+            return false;
+        }
+        return check2(s, t) || isSubtree2(s.left, t) || isSubtree2(s.right, t);
+    }
+
+    private boolean check2(TreeNode s, TreeNode t) {
+        if (s == null && t == null) {
+            return true;
+        }
+        if (s == null || t == null) {
+            return false;
+        }
+        if (s.val != t.val) {
+            return false;
+        }
+        return check2(s.left, t.left) && check2(s.right, t.right);
     }
 }
