@@ -20,7 +20,7 @@ public class M150_Calc_Reversed_Potland_Notion {
     public static void main(String[] args) {
         M150_Calc_Reversed_Potland_Notion solution = new M150_Calc_Reversed_Potland_Notion();
         String[] tokens = {"2", "1", "+", "3", "*"};
-        System.out.println(solution.evalRPN(tokens));
+        System.out.println(solution.evalRPN3(tokens));
     }
 
     public int evalRPN(String[] tokens) {
@@ -103,5 +103,41 @@ public class M150_Calc_Reversed_Potland_Notion {
             }
         }
         return stack.peek();
+    }
+
+    public int evalRPN3(String[] tokens) {
+        Stack<Integer> nums = new Stack<>();
+        for(String token: tokens) {
+            if(Character.isDigit(token.charAt(0))) {
+                nums.push(Integer.valueOf(token));
+            } else {
+                int right,left;
+                switch (token) {
+                    case "+":
+                        right = nums.pop();
+                        left = nums.pop();
+                        nums.push(left+right);
+                        break;
+                    case "-":
+                        right = nums.pop();
+                        left = nums.pop();
+                        nums.push(left-right);
+                        break;
+                    case "*":
+                        right = nums.pop();
+                        left = nums.pop();
+                        nums.push(left*right);
+                        break;
+                    case "/":
+                        right = nums.pop();
+                        left = nums.pop();
+                        nums.push(left/right);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return nums.peek();
     }
 }

@@ -57,7 +57,7 @@ public class P1626_Calculator {
             }
             String element = s.substring(start, end);
             start = end;
-            // 中缀转后缀的规则：数字直接打印，运算符优先级高则入栈，否则站内元素出栈
+            // 中缀转后缀的规则：数字直接打印，运算符优先级高则入栈，否栈站内元素出栈
             if (map.containsKey(element)) {
                 while (!operators.isEmpty() && map.get(operators.peek()) >= map.get(element)) {
                     elements.add(operators.pop());

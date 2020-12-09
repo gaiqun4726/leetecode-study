@@ -45,7 +45,7 @@ public class M22_Gen_Parenthesis {
 
     public static void main(String[] args) {
         M22_Gen_Parenthesis solution = new M22_Gen_Parenthesis();
-        List<String> result = solution.generateParenthesis2(3);
+        List<String> result = solution.generateParenthesis3(3);
         for (String s : result) {
             System.out.println(s);
         }
@@ -76,6 +76,34 @@ public class M22_Gen_Parenthesis {
             sb.append(")");
             backtrace2(sb, left, right - 1);
             sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+
+    public List<String> generateParenthesis3(int n) {
+        List<String> result = new ArrayList<>();
+        if (n <= 0) {
+            return result;
+        }
+        helper(result, "", n, n);
+        return result;
+    }
+
+    private void helper(List<String> result, String part, int left, int right) {
+        // 满足条件
+        if (left == 0 && right == 0) {
+            result.add(part);
+            return;
+        }
+        // 剪枝
+        if (left > right) {
+            return;
+        }
+        // 对每个选择进行：选择->递归->回溯
+        if (left > 0) {
+            helper(result, part + "(", left - 1, right);
+        }
+        if (right > 0) {
+            helper(result, part + ")", left, right - 1);
         }
     }
 }

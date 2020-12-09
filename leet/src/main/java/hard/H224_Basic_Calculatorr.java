@@ -23,7 +23,7 @@ public class H224_Basic_Calculatorr {
     public static void main(String[] args) {
         H224_Basic_Calculatorr solution = new H224_Basic_Calculatorr();
         String expression = "(1+(4+5+2)-3)+(6+8)";
-        System.out.println(solution.calculate2(expression));
+        System.out.println(solution.calculate3(expression));
     }
 
     public int calculate(String s) {
@@ -164,5 +164,80 @@ public class H224_Basic_Calculatorr {
             }
         }
         return a;
+    }
+
+    public int calculate3(String s) {
+        return compute(convertToTokens(s));
+    }
+
+    private List<String> convertToTokens(String s) {
+        Stack<Character> ops = new Stack<>();
+        List<String> tokens = new ArrayList<>();
+        s = s.trim();
+        while (s.length() != 0) {
+            int pos = 0;
+            char c = s.charAt(pos);
+            switch (c) {
+                case '+':
+                case '-':
+                    while (!ops.isEmpty() && ops.peek() != '(') {
+                        tokens.add(String.valueOf(ops.pop()));
+                    }
+                    ops.push(c);
+                    s = s.substring(1).trim();
+                    break;
+                case '(':
+                    ops.push(c);
+                    s = s.substring(1).trim();
+                    break;
+                case ')':
+                    while (ops.peek() != '(') {
+                        tokens.add(String.valueOf(ops.pop()));
+                    }
+                    ops.pop();
+                    s = s.substring(1).trim();
+                    break;
+                default:
+                    int val = 0;
+                    while (pos < s.length()) {
+                        c = s.charAt(pos++);
+                        if (Character.isDigit(c)) {
+                            val = 10 * val + c - '0';
+                        } else {
+                            break;
+                        }
+                    }
+                    tokens.add(String.valueOf(val));
+                    s = s.substring(pos-1).trim();
+                    break;
+            }
+        }
+        while(!ops.isEmpty()) {
+            tokens.add(String.valueOf(ops.pop()));
+        }
+        return tokens;
+    }
+
+    private int compute(List<String> tokens) {
+        Stack<String> nums = new Stack<>();
+        for (String token : tokens) {
+            int left, right;
+            switch (token) {
+                case "+":
+                    right = Integer.parseInt(nums.pop());
+                    left = Integer.parseInt(nums.pop());
+                    nums.push(String.valueOf(left + right));
+                    break;
+                case "-":
+                    right = Integer.parseInt(nums.pop());
+                    left = Integer.parseInt(nums.pop());
+                    nums.push(String.valueOf(left - right));
+                    break;
+                default:
+                    nums.push(token);
+                    break;
+            }
+        }
+        return Integer.parseInt(nums.peek());
     }
 }
