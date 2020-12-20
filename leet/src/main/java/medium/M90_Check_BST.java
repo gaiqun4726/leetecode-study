@@ -3,6 +3,7 @@ package medium;
 import common.TreeNode;
 
 public class M90_Check_BST {
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         TreeNode right = new TreeNode(1);
@@ -24,10 +25,46 @@ public class M90_Check_BST {
      * @return
      */
     boolean isValidHelper(TreeNode root, long min, long max) {
-        if (root == null)
+        if (root == null) {
             return true;
-        if (root.val >= max || root.val <= min)
+        }
+        if (root.val >= max || root.val <= min) {
             return false;
+        }
         return isValidHelper(root.left, min, root.val) && isValidHelper(root.right, root.val, max);
     }
+
+    //public boolean isValidBST2(TreeNode root) {
+    //    return validLeft(root, Integer.MAX_VALUE);
+    //}
+    //
+    //private boolean validLeft(TreeNode root, int maxVal) {
+    //    if (root == null) {
+    //        return true;
+    //    }
+    //    int val = root.val;
+    //    if (root.left != null && root.left.val > val) {
+    //        return false;
+    //    }
+    //    if (root.right != null && (root.right.val < val || root.right.val > maxVal)) {
+    //        return false;
+    //    }
+    //    return validLeft(root.left, root.val) && validRight(root.right, root.val);
+    //}
+    //
+    //private boolean validRight(TreeNode root, int minVal) {
+    //    if (root == null) {
+    //        return true;
+    //    }
+    //    int val = root.val;
+    //    if (root.left != null && (root.left.val > val || root.left.val < minVal)) {
+    //        return false;
+    //    }
+    //    if (root.right != null && root.right.val < val) {
+    //        return false;
+    //    }
+    //    return validLeft(root.left, root.val) && validRight(root.right, root.val);
+    //}
+
+    public boolean isValidBST2(TreeNode root)
 }
