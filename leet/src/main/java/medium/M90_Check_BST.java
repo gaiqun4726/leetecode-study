@@ -66,5 +66,7 @@ public class M90_Check_BST {
     //    return validLeft(root.left, root.val) && validRight(root.right, root.val);
     //}
 
-    public boolean isValidBST2(TreeNode root)
+    public boolean isValidBST2(TreeNode root) {
+        return false;
+    }
 }

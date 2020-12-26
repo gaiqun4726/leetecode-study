@@ -2,12 +2,8 @@ package medium;
 
 import common.TreeNode;
 import common.TreeUtils;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+
+import java.util.*;
 
 /**
  * @author gaiqun
@@ -69,6 +65,7 @@ public class M337_Rob_III {
 
     /**
      * 奇偶层层次遍历，此解不可行。
+     *
      * @param root
      * @return
      */
@@ -138,5 +135,24 @@ public class M337_Rob_III {
             b = tmp;
         }
         return b;
+    }
+
+    public int rob4(TreeNode root) {
+        memo = new HashMap<>();
+        return dp(root);
+    }
+
+    public int dp(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        if (memo.containsKey(root)) {
+            return memo.get(root);
+        }
+        int robLeft = root.left != null ? dp(root.left.left) + dp(root.left.right) : 0;
+        int robRight = root.right != null ? dp(root.right.left) + dp(root.right.right) : 0;
+        int res = Math.max(root.val + robLeft + robRight, dp(root.left) + dp(root.right));
+        memo.put(root, res);
+        return res;
     }
 }
