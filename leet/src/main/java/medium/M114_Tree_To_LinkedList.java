@@ -53,4 +53,31 @@ public class M114_Tree_To_LinkedList {
             cur = cur.right;
         }
     }
+
+    /**
+     * 递归解法。先序解法，先处理根，再处理左右子树。
+     * 可以考虑最简单的情形，帮助理解递归
+     *
+     * @param root
+     */
+    public void flatten2(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode rightChild = root.right;
+        TreeNode leftChild = root.left;
+        // 左子树改为右子树
+        root.right = root.left;
+        // 左子树改为null
+        root.left = null;
+        TreeNode cur = root;
+        while (cur.right != null) {
+            cur = cur.right;
+        }
+        // 把右子树接到左子树的最右节点
+        cur.right = rightChild;
+        // 递归对左右子树flatten
+        flatten(leftChild);
+        flatten(rightChild);
+    }
 }

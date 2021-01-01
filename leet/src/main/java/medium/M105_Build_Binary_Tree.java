@@ -1,6 +1,7 @@
 package medium;
 
 import common.TreeNode;
+
 import java.util.Arrays;
 
 /**
@@ -12,6 +13,12 @@ import java.util.Arrays;
  * 前序中序遍历，构建唯一二叉树
  */
 public class M105_Build_Binary_Tree {
+    public static void main(String[] args) {
+        M105_Build_Binary_Tree solution = new M105_Build_Binary_Tree();
+        int[] preorder = {3, 9, 20, 15, 7};
+        int[] inorder = {9, 3, 15, 20, 7};
+        solution.buildTree2(preorder, inorder);
+    }
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         if (preorder.length == 0) {
@@ -36,5 +43,31 @@ public class M105_Build_Binary_Tree {
             }
         }
         return pos;
+    }
+
+    public TreeNode buildTree2(int[] preorder, int[] inorder) {
+        if (preorder.length == 0) {
+            return null;
+        }
+        int len = preorder.length;
+        return helper(preorder, 0, len - 1, inorder, 0, len - 1);
+    }
+
+    public TreeNode helper(int[] preorder, int preLeft, int preRight, int[] inorder, int inLeft, int inRight) {
+        if (preLeft > preRight) {
+            return null;
+        }
+        int val = preorder[preLeft];
+        int index = inLeft;
+        for (; index <= inRight; index++) {
+            if (inorder[index] == val) {
+                break;
+            }
+        }
+        int size = index - inLeft;
+        TreeNode root = new TreeNode(val);
+        root.left = helper(preorder, preLeft + 1, preLeft + size, inorder, inLeft, index - 1);
+        root.right = helper(preorder, preLeft + size + 1, preRight, inorder, index + 1, inRight);
+        return root;
     }
 }
