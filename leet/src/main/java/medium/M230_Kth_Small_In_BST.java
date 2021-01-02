@@ -15,7 +15,7 @@ public class M230_Kth_Small_In_BST {
         root2.left = root4;
         root2.right = root5;
         root4.left = root6;
-        System.out.println(new M230_Kth_Small_In_BST().kthSmallest(root, 3));
+        System.out.println(new M230_Kth_Small_In_BST().kthSmallest2(root, 3));
     }
 
     /**
@@ -45,5 +45,29 @@ public class M230_Kth_Small_In_BST {
             return;
         }
         dfs(root.right, array);
+    }
+
+    // cnt从零开始取
+    int cnt = 0;
+    int val = 0;
+
+    public int kthSmallest2(TreeNode root, int k) {
+        find(root, k);
+        return val;
+    }
+
+    public void find(TreeNode root, int k) {
+        if (root == null) {
+            return;
+        }
+        find(root.left, k);
+        // 必须先把cnt增加，再判断和k是否相等
+        cnt++;
+        // 中序遍历，得到有序集合，第k个元素就是目标元素。
+        if (cnt == k) {
+            val = root.val;
+            return;
+        }
+        find(root.right, k);
     }
 }
