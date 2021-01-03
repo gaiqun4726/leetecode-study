@@ -16,9 +16,11 @@ public class M86_Split_LinkedList {
 
     public static void main(String[] args) {
         int[] nums = {1, 4, 3, 2, 5, 2};
+//        int[] nums = {1,1};
         ListNode head = ListUtils.buildList(nums);
         M86_Split_LinkedList solution = new M86_Split_LinkedList();
-        System.out.println(solution.partition(head, 3));
+        System.out.println(solution.partition2(head, 3));
+//        System.out.println(solution.partition2(head, 0));
     }
 
     public ListNode partition(ListNode head, int x) {
@@ -43,5 +45,26 @@ public class M86_Split_LinkedList {
         bCur.next = null;
         sCur.next = big.next;
         return small.next;
+    }
+
+    public ListNode partition2(ListNode head, int x) {
+        ListNode smallHead = new ListNode(-1);
+        ListNode bigHead = new ListNode(-1);
+        ListNode cur = head;
+        ListNode smallCur = smallHead;
+        ListNode bigCur = bigHead;
+        while (cur != null) {
+            if (cur.val < x) {
+                smallCur.next = cur;
+                smallCur = smallCur.next;
+            } else {
+                bigCur.next = cur;
+                bigCur = bigCur.next;
+            }
+            cur = cur.next;
+        }
+        bigCur.next = null;
+        smallCur.next = bigHead.next;
+        return smallHead.next;
     }
 }

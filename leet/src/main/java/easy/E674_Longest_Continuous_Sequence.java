@@ -10,6 +10,12 @@ package easy;
  */
 public class E674_Longest_Continuous_Sequence {
 
+    public static void main(String[] args) {
+        E674_Longest_Continuous_Sequence solution = new E674_Longest_Continuous_Sequence();
+        int[] nums = {1, 3, 5, 7};
+        System.out.println(solution.findLengthOfLCIS2(nums));
+    }
+
     public int findLengthOfLCIS(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
@@ -28,4 +34,23 @@ public class E674_Longest_Continuous_Sequence {
         maxLen = Math.max(maxLen, count);
         return maxLen;
     }
+
+    public int findLengthOfLCIS2(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int len = nums.length;
+        int count = 1;
+        int result = 0;
+        for (int i = 0; i < len - 1; i++) {
+            if (nums[i + 1] > nums[i]) {
+                count++;
+            } else {
+                result = Math.max(result, count);
+                count = 1;
+            }
+        }
+        return Math.max(result, count);
+    }
 }
+
