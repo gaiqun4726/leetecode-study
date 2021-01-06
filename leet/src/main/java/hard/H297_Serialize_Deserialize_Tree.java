@@ -2,10 +2,7 @@ package hard;
 
 import common.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class H297_Serialize_Deserialize_Tree {
     public static void main(String[] args) {
@@ -60,6 +57,44 @@ public class H297_Serialize_Deserialize_Tree {
         TreeNode root = new TreeNode(Integer.parseInt(val));
         root.left = helperDeserialize(it);
         root.right = helperDeserialize(it);
+        return root;
+    }
+
+    // Encodes a tree to a single string.
+    public String serialize3(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        helper1(root, sb);
+        return sb.toString();
+    }
+
+    void helper1(TreeNode root, StringBuilder sb) {
+        if (root == null) {
+            sb.append("#").append(",");
+            return;
+        }
+        sb.append(root.val).append(",");
+        helper1(root.left, sb);
+        helper1(root.right, sb);
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize3(String data) {
+        LinkedList<String> nodes = new LinkedList<>(Arrays.asList(data.split(",")));
+        return helper2(nodes);
+    }
+
+    TreeNode helper2(LinkedList<String> nodes) {
+        if (nodes.isEmpty()) {
+            return null;
+        }
+        // 使用LinkedList
+        String first = nodes.removeFirst();
+        if (first.equals("#")) {
+            return null;
+        }
+        TreeNode root = new TreeNode(Integer.parseInt(first));
+        root.left = helper2(nodes);
+        root.right = helper2(nodes);
         return root;
     }
 }

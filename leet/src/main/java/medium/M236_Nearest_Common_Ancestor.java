@@ -33,4 +33,35 @@ public class M236_Nearest_Common_Ancestor {
         }
         return root;
     }
+
+    /**
+     * 函数定义：返回p、q的最近公共祖先。由于要递归调用，因此要考虑不存在p或q的场景。
+     * 定义改为：存在p、q则返回最近公共祖先；存在p或q则返回p或q；p、q都不存在，则返回null。
+     * 题目的描述，树中一定存在p和q。
+     *
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return root;
+        }
+        if (root == p || root == q) {
+            return root;
+        }
+        // 递归方法会递归调用，因此函数的定义需要考虑各种情形
+        TreeNode left = lowestCommonAncestor2(root.left, p, q);
+        TreeNode right = lowestCommonAncestor2(root.right, p, q);
+        // 递归函数的返回值该怎么用，考虑base case，返回值就遵循base case的用法
+        // 本题是一道后序遍历的框架
+        if (left == null && right == null) {
+            return null;
+        }
+        if (left != null && right != null) {
+            return root;
+        }
+        return left != null ? left : right;
+    }
 }
