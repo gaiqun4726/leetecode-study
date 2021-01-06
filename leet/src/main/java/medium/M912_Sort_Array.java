@@ -14,6 +14,8 @@ import java.util.Arrays;
  * 如果单纯排序，快排就足够好了。但是有些问题需要解决归并排序的思想来解决，比如求逆序数的问题。
  *
  * 稳定的排序算法可以使用冒泡排序，时间复杂度O(n^2)。
+ *
+ * 使用树的遍历思想，可以帮助构建快排和归并排序的递归函数。
  */
 public class M912_Sort_Array {
 
@@ -41,6 +43,7 @@ public class M912_Sort_Array {
             return;
         }
         // 找到分割点，然后递归排序
+        // 前序遍历。先处理根，再处理左右孩子。
         int pivot = partition(nums, start, end);
         quickSort(nums, start, pivot - 1);
         quickSort(nums, pivot + 1, end);
@@ -74,6 +77,7 @@ public class M912_Sort_Array {
             return nums;
         }
         // 排序结果用一个二维数组表示
+        // 后序遍历，先处理左右孩子，再处理根。
         int[][] res = split(nums);
         int[] left = sortArray2(res[0]);
         int[] right = sortArray2(res[1]);
