@@ -1,6 +1,7 @@
 package medium;
 
 import common.TreeNode;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class M103_Zigzag_Search {
         right.left = null;
         right.right = null;
         M103_Zigzag_Search solution = new M103_Zigzag_Search();
-        System.out.println(solution.zigzagLevelOrder(root));
+        System.out.println(solution.zigzagLevelOrder3(root));
     }
 
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
@@ -148,6 +149,44 @@ public class M103_Zigzag_Search {
                     nodes.addLast(null);
                 }
             }
+        }
+        return result;
+    }
+
+    public List<List<Integer>> zigzagLevelOrder3(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int level = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            LinkedList<TreeNode> list = new LinkedList<>();
+            while (size != 0) {
+                TreeNode node = queue.poll();
+                list.addLast(node);
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+                size--;
+            }
+            List<Integer> res = new ArrayList<>();
+            if (level % 2 == 1) {
+                while (!list.isEmpty()) {
+                    res.add(list.removeFirst().val);
+                }
+            } else {
+                while (!list.isEmpty()) {
+                    res.add(list.removeLast().val);
+                }
+            }
+            result.add(res);
+            level++;
         }
         return result;
     }
