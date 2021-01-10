@@ -98,4 +98,40 @@ public class H42_Collect_Rain {
         }
         return count;
     }
+
+    /**
+     * 双指针解法
+     * 接雨水与最大容器两道题，都是使用双指针。
+     * 最大容器是把左右当前高度较小的指针向中间移动
+     * 接雨水是把左右经过的最大高度直接较小的指针向中间移动
+     * @param height
+     * @return
+     */
+    public int trap4(int[] height) {
+        if (height == null || height.length <= 2) {
+            return 0;
+        }
+        int len = height.length;
+        int left = 0;
+        int right = len - 1;
+        int leftMax = height[left];
+        int rightMax = height[right];
+        int res = 0;
+        while (left <= right) {
+            // 左右最值更新
+            leftMax = Math.max(leftMax, height[left]);
+            rightMax = Math.max(rightMax, height[right]);
+            // 当前左侧最大小于右侧最大，则无论右边怎么挪，右边最大都不会小于当前的右边最大。
+            // 而左边最大已知，此时就可以确定当前位置可以存储的水量了。
+            if (leftMax < rightMax) {
+                res += leftMax - height[left];
+                // 水量计算完后，左指针右移。
+                left++;
+            } else {
+                res += rightMax - height[right];
+                right--;
+            }
+        }
+        return res;
+    }
 }
