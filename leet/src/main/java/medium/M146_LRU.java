@@ -1,8 +1,6 @@
 package medium;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author gaiqun
@@ -54,6 +52,87 @@ public class M146_LRU {
                     cnt++;
                 }
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] operators = {{1, 1, 1}, {1, 2, 2}, {1, 3, 2}, {2, 1}, {1, 4, 4}, {2, 2}};
+        M146_LRU solution = new M146_LRU();
+        System.out.println(solution.LRU(operators, 3));
+    }
+
+    public int[] LRU(int[][] operators, int k) {
+        // write code here
+        Cache cache = new Cache(k);
+        List<Integer> result = new ArrayList<>();
+        for (int[] ops : operators) {
+            int op = ops[0];
+            if (op == 1) {
+                cache.set(ops[1], ops[2]);
+            }
+            if (op == 2) {
+                result.add(cache.get(ops[1]));
+            }
+        }
+        return result.stream().mapToInt(Integer::valueOf).toArray();
+    }
+
+    static class Cache {
+        private Map<Integer, Node> map = new HashMap<>();
+        private LinkedList<Node> list = new LinkedList<>();
+        private int k;
+
+        public Cache(int k) {
+            this.k = k;
+        }
+
+        public int get(int key) {
+            if (!map.containsKey(key)) {
+                return -1;
+            }
+            Node node = map.get(key);
+            list.remove(node);
+            list.addFirst(node);
+            return node.get(key);
+        }
+
+        public void set(int key, int value) {
+            if (map.containsKey(key)) {
+                Node node = map.get(key);
+                list.remove(node);
+                node.set(value);
+                list.addFirst(node);
+            } else {
+                Node node = new Node(key, value);
+                if (list.size() >= k) {
+                    Node tmp = list.removeLast();
+                    map.remove(tmp.getKey());
+                }
+                list.addFirst(node);
+                map.put(key, node);
+            }
+        }
+    }
+
+    static class Node {
+        private int key;
+        private int value;
+
+        public Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public void set(int value) {
+            this.value = value;
+        }
+
+        public int get(int key) {
+            return this.value;
+        }
+
+        public int getKey() {
+            return this.key;
         }
     }
 }
