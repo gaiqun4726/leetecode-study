@@ -69,10 +69,10 @@ public class M11_Max_Container {
     public int maxArea4(int[] height) {
         int result = 0;
         int left = 0;
-        int right = height.length-1;
-        while(left<right) {
-            result = Math.max(result, Math.min(height[left], height[right])*(right-left));
-            if(height[left]<height[right]) {
+        int right = height.length - 1;
+        while (left < right) {
+            result = Math.max(result, Math.min(height[left], height[right]) * (right - left));
+            if (height[left] < height[right]) {
                 left++;
             } else {
                 right--;
