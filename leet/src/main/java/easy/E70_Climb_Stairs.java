@@ -38,4 +38,28 @@ public class E70_Climb_Stairs {
         }
         return n_step;
     }
+
+    int[] memo;
+
+    public int climbStairs3(int n) {
+        if (n <= 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+        memo = new int[n + 1];
+        memo[0] = 1;
+        memo[1] = 1;
+        memo[2] = 2;
+        return helper(n);
+    }
+
+    private int helper(int n) {
+        if (memo[n] != 0) {
+            return memo[n];
+        }
+        String s = String.valueOf(1);
+        return (helper(n - 1) + helper(n - 2)) % 1000000008;
+    }
 }

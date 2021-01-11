@@ -14,6 +14,15 @@ package medium;
  */
 public class M300_Longest_Increase_Subsequence {
 
+    public static void main(String[] args) {
+        M300_Longest_Increase_Subsequence solution = new M300_Longest_Increase_Subsequence();
+        int[] nums = {5, 2, 1, 3, 6, 4, 9};
+        System.out.println(solution.lengthOfLIS(nums));
+        for (int i : solution.LIS(nums)) {
+            System.out.print(i + " ");
+        }
+    }
+
     public int lengthOfLIS(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
@@ -34,5 +43,46 @@ public class M300_Longest_Increase_Subsequence {
             maxLength = Math.max(maxLength, dp[i]);
         }
         return maxLength;
+    }
+
+    public int[] LIS(int[] arr) {
+        // write code here
+        if (arr == null || arr.length == 0) {
+            return arr;
+        }
+        int n = arr.length;
+        String[] dp = new String[n];
+        String result = String.valueOf(arr[0]);
+        for (int i = 0; i < n; i++) {
+            dp[i] = String.valueOf(arr[i]);
+            if (dp[i].compareTo(result) < 0) {
+                result = dp[i];
+            }
+        }
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (arr[i] > arr[j]) {
+                    if (dp[i].length() < dp[j].length() + 1) {
+                        dp[i] = dp[j] + arr[i];
+                    } else if (dp[i].length() == dp[j].length() + 1) {
+                        if (dp[i].compareTo(dp[j] + arr[i]) > 0) {
+                            dp[i] = dp[j] + arr[i];
+                        }
+                    }
+                }
+                if (dp[i].length() > result.length()) {
+                    result = dp[i];
+                } else if (dp[i].length() == result.length()) {
+                    if (dp[i].compareTo(result) < 0) {
+                        result = dp[i];
+                    }
+                }
+            }
+        }
+        int[] res = new int[result.length()];
+        for (int i = 0; i < result.length(); i++) {
+            res[i] = result.charAt(i) - '0';
+        }
+        return res;
     }
 }
