@@ -56,30 +56,70 @@ public class M5_Longest_Palindrome {
 
     public String longestPalindrome2(String s) {
         String res = "";
-        for(int i=0;i<s.length();i++) {
+        for (int i = 0; i < s.length(); i++) {
             String str1 = getPal1(s, i);
             String str2 = getPal2(s, i);
-            res = res.length()>str1.length()?res:str1;
-            res = res.length()>str2.length()?res:str2;
+            res = res.length() > str1.length() ? res : str1;
+            res = res.length() > str2.length() ? res : str2;
         }
         return res;
     }
 
     private String getPal1(String s, int index) {
         int left = index, right = index;
-        while(left >=0 && right <s.length() && s.charAt(left) == s.charAt(right)) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
             left--;
             right++;
         }
-        return s.substring(left+1, right);
+        return s.substring(left + 1, right);
     }
 
     private String getPal2(String s, int index) {
-        int left = index, right = index+1;
-        while(left >=0 && right <s.length() && s.charAt(left) == s.charAt(right)) {
+        int left = index, right = index + 1;
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
             left--;
             right++;
         }
-        return s.substring(left+1, right);
+        return s.substring(left + 1, right);
+    }
+
+    /**
+     * 中心扩展法
+     *
+     * @param A
+     * @param n
+     * @return
+     */
+    public int getLongestPalindrome(String A, int n) {
+        // write code here
+        if (n <= 1) {
+            return n;
+        }
+        int res = 1;
+        for (int i = 0; i < n; i++) {
+            int res1 = helper(A, n, i, i);
+            int res2 = helper(A, n, i, i + 1);
+            res = Math.max(res, res1);
+            res = Math.max(res, res2);
+        }
+        return res;
+    }
+
+    /**
+     * 这个方法传入中心的左右两个索引，可以支持中心是一个和中心是两个的情形。
+     *
+     * @param A
+     * @param n
+     * @param a
+     * @param b
+     * @return
+     */
+    private int helper(String A, int n, int a, int b) {
+        while (a >= 0 && b < n && A.charAt(a) == A.charAt(b)) {
+            a--;
+            b++;
+        }
+        // 这里注意，退出循环后a、b所在位置都需要回退一位才是回文串的起止位置。
+        return b - a - 1;
     }
 }
