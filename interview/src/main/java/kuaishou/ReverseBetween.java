@@ -1,44 +1,40 @@
 package kuaishou;
 
 import common.ListNode;
+import common.ListUtils;
 
 /**
  * @author gaiqun
  * @date 2021/1/10
  */
 public class ReverseBetween {
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4, 5};
+        ListNode head = ListUtils.buildList(nums);
+        ReverseBetween solution = new ReverseBetween();
+        ListNode res = solution.reverseBetween(head, 2, 4);
+        System.out.println(res);
+    }
+
     public ListNode reverseBetween(ListNode head, int m, int n) {
         // write code here
-        ListNode front = head;
-        while (m > 1) {
-            front = front.next;
-            m--;
+        if (m == 1) {
+            return reverse(head, n);
         }
-        n = n - m;
-        ListNode tail = front;
-        while (n != 0) {
-            tail = tail.next;
-            n--;
-        }
-        ListNode newHead = front.next;
-        ListNode newTail = tail.next;
-        tail.next = null;
-        ListNode node = reverse(newHead);
-        newHead.next = node;
-        while (newHead.next != null) {
-            newHead = newHead.next;
-        }
-        newHead.next = newTail;
+        head.next = reverseBetween(head.next, m - 1, n - 1);
         return head;
     }
 
-    private ListNode reverse(ListNode head) {
-        if (head == null) {
+    ListNode next = null;
+
+    private ListNode reverse(ListNode head, int n) {
+        if (n == 1) {
+            next = head.next;
             return head;
         }
-        ListNode node = reverse(head.next);
+        ListNode node = reverse(head.next, n - 1);
         head.next.next = head;
-        head.next = null;
+        head.next = next;
         return node;
     }
 }
