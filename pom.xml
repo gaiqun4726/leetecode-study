@@ -19,6 +19,8 @@
     <module>review</module>
     <module>jvm</module>
       <module>source</module>
+    <module>netty</module>
+    <module>design-pattern</module>
   </modules>
 
   <dependencies>
