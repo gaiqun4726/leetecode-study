@@ -18,9 +18,10 @@
     <module>basic</module>
     <module>review</module>
     <module>jvm</module>
-      <module>source</module>
+    <module>source</module>
     <module>netty</module>
     <module>design-pattern</module>
+    <module>kuaishou</module>
   </modules>
 
   <dependencies>

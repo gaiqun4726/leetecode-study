@@ -75,4 +75,40 @@ public class E225_Use_Queue_For_Stack {
             return q1.isEmpty() && q2.isEmpty();
         }
     }
+
+    /**
+     * 一个队列实现。每次offer后，把历史的poll出来重新offer一遍
+     */
+    class MyStack2 {
+
+        private Queue<Integer> list; //需要用Queue接口，用List接口的话没有offer和poll方法。
+
+        public MyStack2() {
+            list = new LinkedList<>();
+        }
+
+        public void push(int x) {
+            list.offer(x);
+            int i = 0;
+            int size = list.size();
+            while(i<size-1) {
+                list.offer(list.poll());
+                i++;
+            }
+        }
+
+        public int pop() {
+            return list.poll();
+        }
+
+        public int top() {
+            return list.peek();
+        }
+
+        public boolean empty() {
+            return list.isEmpty();
+        }
+    }
+
+
 }

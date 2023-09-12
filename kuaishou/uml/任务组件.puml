@@ -1,0 +1,15 @@
+@startuml
+
+actor 用户
+participant 任务组件
+participant 任务服务
+participant 奖励服务
+participant 事件总线
+participant 激励中台
+
+== B端创建任务阶段 ==
+
+== C端完成任务阶段 ==
+
+|||
+@enduml

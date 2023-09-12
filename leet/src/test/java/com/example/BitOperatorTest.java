@@ -3,6 +3,10 @@ package com.example;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author gaiqun
  * @date 2020/3/25
@@ -35,5 +39,12 @@ public class BitOperatorTest {
         Long num = val << 17;
 
         System.out.println(num);
+    }
+
+    @Test
+    public void testSort() {
+        List<Integer> list = new ArrayList<>();
+        list.sort((o1,o2)->o2-o1);
+        Collections.reverse(list);
     }
 }

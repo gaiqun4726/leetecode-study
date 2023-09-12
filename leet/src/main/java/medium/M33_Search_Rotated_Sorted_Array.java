@@ -14,8 +14,8 @@ package medium;
 public class M33_Search_Rotated_Sorted_Array {
 
     public static void main(String[] args) {
-        int[] nums = {3, 1};
-        System.out.println(new M33_Search_Rotated_Sorted_Array().search2(nums, 1));
+        int[] nums = {4, 5, 6, 7, 0, 1, 2};
+        System.out.println(new M33_Search_Rotated_Sorted_Array().search(nums, 0));
     }
 
     /**
@@ -109,6 +109,34 @@ public class M33_Search_Rotated_Sorted_Array {
                 end = mid - 1;
             } else {
                 start = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 不要用此方法，很难覆盖所有分支，且边界很难处理。本解法就有bug还没解决
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    @Deprecated
+    public int search3(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+        int low = 0, high = nums.length - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            }
+            if ((nums[mid] > target && nums[low] <= target) || nums[mid] < target && nums[high] <= target) {
+                high = mid - 1;
+            }
+            if ((nums[mid] > target && nums[low] >= target) || nums[mid] < target && nums[high] >= target) {
+                low = mid + 1;
             }
         }
         return -1;
